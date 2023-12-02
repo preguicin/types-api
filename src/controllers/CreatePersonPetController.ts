@@ -7,29 +7,30 @@ export class CreatePersonPetController{
 		const {person, pet} = req.body;
 		try {
 			if("id" in person && "id" in pet){
-				const petPerson = prismaClient.personPet.create({
-					data:{
-						pet:{
-							connect:{
-								id:pet.id
-							}
-						},
-						person:{	
-							connect:{
+				const petPerson = await prismaClient.personPet.create({
+					data: {
+						person: {
+							connect: {
 								id: person.id
 							}
 						},
-						assignedAt: new Date()					
+						pet: {
+							connect: {
+								id: pet.id
+							}
+						},
+						assignedAt: new Date()
 					},
-					include:{
-						person:true,
-						pet:true
+					include: {
+						person: true,
+						pet: true
 					}
+					
 				});
 				return res.json(petPerson);
 			}
-			else if("id" in person){
-				const petPerson = prismaClient.personPet.create({
+			else if("id" in pet){
+				const petPerson = await prismaClient.personPet.create({
 					data:{
 						pet:{
 							connect:{
@@ -37,8 +38,9 @@ export class CreatePersonPetController{
 							}
 						},
 						person:{	
-							connect:{
-								id: person.id
+							create:{
+								name: person.name,
+								contacts_info: person.cotacts 
 							}
 						}
 					},
@@ -49,6 +51,45 @@ export class CreatePersonPetController{
 				});
 				return res.json(petPerson);
 			}
+			else if("id" in person){
+				const petPerson = await prismaClient.personPet.create({
+					data:{
+						pet:{
+							create:{
+								name: pet.name
+							}
+						},
+						person:{	
+							connect:{
+								id: person.id
+							}
+						}
+					}
+				});
+				return res.json(petPerson);
+			}else{
+				const petPerson = await prismaClient.personPet.create({
+					data:{
+						pet:{
+							create:{
+								name: pet.name
+							}
+						},
+						person:{	
+							create:{
+								name: person.name,
+								contacts_info: person.cotacts 
+							}
+						}
+					},
+					include:{
+						person:true,
+						pet:true
+					}
+				});
+				return res.json(petPerson);
+			}
+			
 		} catch (error) {
 			if(error instanceof Error){
 				return res.status(400).json({"message": getLastMessageOfError(error.message)});

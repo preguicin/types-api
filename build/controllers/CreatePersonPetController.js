@@ -8,17 +8,16 @@ class CreatePersonPetController {
         const { person, pet } = req.body;
         try {
             if ("id" in person && "id" in pet) {
-                console.log(pet.id);
-                const petPerson = prismaClient_1.prismaClient.personPet.create({
+                const petPerson = await prismaClient_1.prismaClient.personPet.create({
                     data: {
-                        pet: {
-                            connect: {
-                                id: pet.id
-                            }
-                        },
                         person: {
                             connect: {
                                 id: person.id
+                            }
+                        },
+                        pet: {
+                            connect: {
+                                id: pet.id
                             }
                         },
                         assignedAt: new Date()
@@ -31,7 +30,6 @@ class CreatePersonPetController {
                 return res.json(petPerson);
             }
             else if ("id" in person) {
-                console.log("?");
                 const petPerson = prismaClient_1.prismaClient.personPet.create({
                     data: {
                         pet: {
