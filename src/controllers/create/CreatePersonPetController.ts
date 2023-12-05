@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { prismaClient } from "../database/prismaClient";
-import { getLastMessageOfError  } from "../utils/util";
+import { prismaClient } from "../../database/prismaClient";
+import { getLastMessageOfError  } from "../../utils/util";
 
 export class CreatePersonPetController{
 	async handle(req:Request,res:Response){
@@ -78,12 +78,21 @@ export class CreatePersonPetController{
 						person:{	
 							create:{
 								name: person.name,
-								contacts_info: person.cotacts 
+								contacts_info: {
+									create:{
+										email: person.contacts.email,
+										number: person.contacts.number
+									}
+								}
 							}
 						}
 					},
 					include:{
-						person:true,
+						person:{
+							include:{
+								contacts_info:true
+							}
+						},
 						pet:true
 					}
 				});
@@ -94,7 +103,7 @@ export class CreatePersonPetController{
 			if(error instanceof Error){
 				return res.status(400).json({"message": getLastMessageOfError(error.message)});
 			}
-			return res.status(400).json({"message":"Unknown error"});
+			return res.status(500).json({"message":"Unknown error"});
 		}
 	}
 }

@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { prismaClient } from "../database/prismaClient";
-import { getLastMessageOfError  } from "../utils/util";
+import { prismaClient } from "../../database/prismaClient";
+import { getLastMessageOfError  } from "../../utils/util";
 
 export class CreatePersonController{
 	async handle(req: Request, res: Response){

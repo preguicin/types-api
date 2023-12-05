@@ -4,5 +4,9 @@ function getLastMessageOfError(message:string): string{
 	return temp[temp.length-1]; 
 }
 
+function idToNumber(id:string): number{
+	const idToNumber:number = +id;
+	return idToNumber;
+}
 
-export { getLastMessageOfError };
+export { getLastMessageOfError, idToNumber };

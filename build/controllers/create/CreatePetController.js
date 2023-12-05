@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePetController = void 0;
-const prismaClient_1 = require("../database/prismaClient");
-const util_1 = require("../utils/util");
+const prismaClient_1 = require("../../database/prismaClient");
+const util_1 = require("../../utils/util");
 class CreatePetController {
     async handle(req, res) {
         const { name, person } = req.body;

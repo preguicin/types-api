@@ -1,0 +1,128 @@
+{
+	"openapi": "3.0.2",
+	"info": {
+	  "title": "Create Person API",
+	  "version": "1.0.0"
+	},
+	"paths": {
+	  "/person": {
+		"post": {
+		  "summary": "Create a person with optional contacts and pet.",
+		  "requestBody": {
+			"required": true,
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "type": "object",
+				  "properties": {
+					"name": {
+					  "type": "string",
+					  "description": "The name of the person."
+					},
+					"contacts": {
+					  "type": "object",
+					  "properties": {
+						"email": {
+						  "type": "string",
+						  "description": "The email address of the person's contacts."
+						},
+						"number": {
+						  "type": "string",
+						  "description": "The phone number of the person's contacts."
+						}
+					  },
+					  "required": ["email", "number"],
+					  "description": "The contacts information of the person."
+					},
+					"pet": {
+					  "type": "object",
+					  "properties": {
+						"id": {
+						  "type": "integer",
+						  "description": "The ID of an existing pet to connect."
+						},
+						"name": {
+						  "type": "string",
+						  "description": "The name of a new pet to create."
+						}
+					  },
+					  "description": "The pet information associated with the person."
+					}
+				  }
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"200": {
+			  "description": "The created person with optional contacts and pet.",
+			  "content": {
+				"application/json": {
+				  "schema": {
+					"$ref": "#/components/schemas/PersonWithDetails"
+				  }
+				}
+			  }
+			}
+		  },
+		  "parameters": [
+			{
+			  "in": "query",
+			  "name": "contacts",
+			  "schema": {
+				"type": "object",
+				"properties": {
+				  "email": {
+					"type": "string",
+					"example": "example@email",
+					"description": "The email address of the person's contacts."
+				  },
+				  "number": {
+					"type": "string",
+					"example": "9999",
+					"description": "The phone number of the person's contacts."
+				  }
+				},
+				"required": ["email", "number"],
+				"description": "Additional contacts information for the person."
+			  }
+			},
+			{
+			  "in": "query",
+			  "name": "pet",
+			  "schema": {
+				"type": "object",
+				"properties": {
+				  "id": {
+					"type": "integer",
+					"description": "The ID of an existing pet to connect."
+				  },
+				  "name": {
+					"type": "string",
+					"description": "The name of a new pet to create."
+				  }
+				},
+				"description": "Additional pet information for the person."
+			  }
+			},
+			{
+			  "in": "query",
+			  "name": "name",
+			  "schema": {
+				"type": "string",
+				"description": "The name of the person.",
+				"required": true
+			  }
+			}
+		  ]
+		}
+	  }
+	},
+	"components": {
+	  "schemas": {
+		"PersonWithDetails": {
+		}
+	  }
+	}
+  }
+  
