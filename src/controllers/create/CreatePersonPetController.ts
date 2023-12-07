@@ -49,7 +49,7 @@ export class CreatePersonPetController{
 						pet:true
 					}
 				});
-				return res.json(petPerson);
+				return res.status(201).json(petPerson);
 			}
 			else if("id" in person){
 				const petPerson = await prismaClient.personPet.create({
@@ -66,7 +66,7 @@ export class CreatePersonPetController{
 						}
 					}
 				});
-				return res.json(petPerson);
+				return res.status(201).json(petPerson);
 			}else{
 				const petPerson = await prismaClient.personPet.create({
 					data:{
@@ -96,7 +96,7 @@ export class CreatePersonPetController{
 						pet:true
 					}
 				});
-				return res.json(petPerson);
+				return res.status(201).json(petPerson);
 			}
 			
 		} catch (error) {

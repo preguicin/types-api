@@ -34,7 +34,7 @@ class CreatePersonController {
                             contacts_info: true
                         }
                     });
-                    return res.json(person);
+                    return res.status(201).json(person);
                 }
                 const person = await prismaClient_1.prismaClient.person.create({
                     data: {
@@ -60,7 +60,7 @@ class CreatePersonController {
                         contacts_info: true
                     }
                 });
-                return res.json(person);
+                return res.status(201).json(person);
             }
             //Creating with none pet
             const person = await prismaClient_1.prismaClient.person.create({
@@ -77,7 +77,7 @@ class CreatePersonController {
                     contacts_info: true
                 }
             });
-            return res.json(person);
+            return res.status(201).json(person);
         }
         catch (error) {
             if (error instanceof Error) {

@@ -27,7 +27,7 @@ class CreatePetController {
                             persons: true
                         }
                     });
-                    return res.json(pet);
+                    return res.status(201).json(pet);
                 }
                 const pet = await prismaClient_1.prismaClient.pet.create({
                     data: {
@@ -52,14 +52,14 @@ class CreatePetController {
                         persons: true
                     }
                 });
-                return res.json(pet);
+                return res.status(201).json(pet);
             }
             const pet = await prismaClient_1.prismaClient.pet.create({
                 data: {
                     name: name
                 }
             });
-            return res.json(pet);
+            return res.status(201).json(pet);
         }
         catch (error) {
             if (error instanceof Error) {

@@ -37,7 +37,7 @@ class CreateContactsController {
                         person: true,
                     }
                 });
-                return res.json(contacts);
+                return res.status(201).json(contacts);
             }
             const contacts = await prismaClient_1.prismaClient.contactsInfo.create({
                 data: {
@@ -53,7 +53,7 @@ class CreateContactsController {
                     person: true
                 }
             });
-            return res.json(contacts);
+            return res.status(201).json(contacts);
         }
         catch (error) {
             if (error instanceof Error) {

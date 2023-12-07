@@ -27,7 +27,7 @@ export class CreatePetController{
 							persons: true
 						}
 					});
-					return res.json(pet);
+					return res.status(201).json(pet);
 				}
 
 				const pet = await prismaClient.pet.create({
@@ -53,7 +53,7 @@ export class CreatePetController{
 						persons: true
 					}
 				});
-				return res.json(pet);				
+				return res.status(201).json(pet);				
 			}
 
 			const pet = await prismaClient.pet.create({
@@ -61,7 +61,7 @@ export class CreatePetController{
 					name: name
 				}
 			});
-			return res.json(pet);
+			return res.status(201).json(pet);
 		} catch (error) {
 			if(error instanceof Error){
 				return res.status(400).json({"message": getLastMessageOfError(error.message)});
